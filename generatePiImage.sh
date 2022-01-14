@@ -7,11 +7,11 @@ VENDOR_RELEASE=${RELEASE_VERSION}
 sudo apt install unzip zip sed
 
 # Download new jar from photonvision main repo
-curl -sk https://api.github.com/repos/photonvision/photonvision/releases/tags/${PHOTONVISION_RELEASE_TAG} | grep "browser_download_url.*photonvision-.*raspi\.jar" | cut -d : -f 2,3 | tr -d '"' | wget -qi -
+curl -sk https://api.github.com/repos/photonvision/photonvision/releases/tags/${PHOTONVISION_RELEASE_TAG} | grep "browser_download_url.*photonvision-.*raspi\.jar" | cut -d : -f 2,3 | tr -d '"' | wget -i -
 JAR_FILE_NAME=$(realpath $(ls | grep photonvision-v.*\.jar))
 
 # Download base image from pigen repo
-curl -sk https://api.github.com/repos/gloworm-vision/pi-gen/releases/tags/${PI_BASE_IMG_TAG} | grep "browser_download_url.*zip" | cut -d : -f 2,3 | tr -d '"' | wget -qi -
+curl -sk https://api.github.com/repos/gloworm-vision/pi-gen/releases/tags/${PI_BASE_IMG_TAG} | grep "browser_download_url.*zip" | cut -d : -f 2,3 | tr -d '"' | wget -i -
 IMG_FILE_NAME=$(realpath $(ls | grep Gloworm-lite*.zip))
 
 # Config files should be in this repo
@@ -30,7 +30,6 @@ cd $TMP/opt/photonvision
 sudo cp $JAR_FILE_NAME photonvision.jar
 
 # Copy in custom hardware configuration 
-sudo mkdir photonvision_config
 cd photonvision_config
 sudo cp ${HW_CFG_FILE_NAME} hardwareConfig.json
 
